@@ -7,8 +7,25 @@ export const blogRoute = new Hono<{
   Bindings: {
     DATABASE_URL: string
     JWT_SECRET: string
+  },
+  Variables: {
+    userId : string
   }
 }>()
+
+blogRoute.use('/api/v1/blog/*', async (c,next)=>{
+  const header = c.req.header("authorization") || "";
+  const token = header.split(" ")[1];
+
+  const res = await verify(token, c.env.JWT_SECRET);
+  if(res.id){
+    c.set("userId", res.id);
+    await next();
+  }else{
+    c.status(403);
+    return c.json({error: "Unathorized"});
+  }
+})
 
 blogRoute.post('/api/v1/blog', (c) => {
     return c.text('signin route')

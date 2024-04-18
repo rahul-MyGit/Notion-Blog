@@ -33,7 +33,8 @@ userRoute.post('/signup',async (c) => {
 userRoute.post('/signin', async (c) => {
   const prisma = new PrismaClient({datasourceUrl: c.env.DATABASE_URL}).$extends(withAccelerate())
   const body = await c.req.json();
-
+  try {
+    
   const user = await prisma.user.findUnique({
     where: {
       email: body.email,
@@ -45,5 +46,7 @@ userRoute.post('/signin', async (c) => {
     return c.json({token})
   }
 
-  return c.text('error while signing in')
+  } catch (error) {
+    return c.text('error while signing in')
+  }
 })
