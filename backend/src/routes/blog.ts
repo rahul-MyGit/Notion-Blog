@@ -13,7 +13,9 @@ export const blogRoute = new Hono<{
   }
 }>()
 
-blogRoute.use('/api/v1/blog/*', async (c,next)=>{
+blogRoute.use('/*', async (c,next)=>{
+  console.log("hehe");
+  
   const header = c.req.header("authorization") || "";
   const token = header.split(" ")[1];
 
@@ -27,21 +29,20 @@ blogRoute.use('/api/v1/blog/*', async (c,next)=>{
   }
 })
 
-blogRoute.post('/api/v1/blog', (c) => {
-    return c.text('signin route')
+blogRoute.post('/', (c) => {
+    return c.text('post route')
   })
 
-blogRoute.put('/api/v1/blog', (c) => {
-    return c.text('signin route')
+blogRoute.put('/', (c) => {
+    return c.text('put route')
   })
 
-blogRoute.get('/api/v1/blog/:id', (c) => {
+blogRoute.get('/bulk', (c) => {
+    return c.text('get all blog')
+  })
+
+blogRoute.get('/:id', (c) => {
     const id = c.req.param('id')
     console.log(id);
-    return c.text('get blog route')
+    return c.text('get gg blog route')
   })
-
-
-// app.get('/api/v1/blog/bulk', (c) => {
-  //   return c.text('get all blog')
-  // })
