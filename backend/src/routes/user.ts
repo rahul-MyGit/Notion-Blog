@@ -28,7 +28,7 @@ userRoute.post('/signup',async (c) => {
       },
     })
     const token = await sign({id: user.id}, c.env.JWT_SECRET);
-    return c.json({jwt : token});
+    return c.json(token);
   }catch (error) {
     return c.json({error: "error while signing up"})
   } 
@@ -52,7 +52,7 @@ userRoute.post('/signin', async (c) => {
    })
    if(user){
      const token = await sign({id: user.id}, c.env.JWT_SECRET);
-     return c.json({token})
+     return c.json(token)
    }else{
     c.status(403);
     return c.json({error: "Invalid username or password"})
