@@ -5,7 +5,12 @@ function Home() {
   return (
     <div>
         <Appbar />
-        <Link to={'/signup'}>GO TO SIGN UP</Link>
+        <Link to={'/signup'}>
+            <div className="flex flex-col justify-center">
+                <div className="flex justify-center">GO TO SIGN UP</div>
+            
+            </div>
+        </Link>
     </div>
   )
 }
