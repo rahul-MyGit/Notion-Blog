@@ -1,6 +1,12 @@
+import { Link } from "react-router-dom"
+import Appbar from "../components/Appbar"
+
 function Home() {
   return (
-    <div>Home</div>
+    <div>
+        <Appbar />
+        <Link to={'/signup'}>GO TO SIGN UP</Link>
+    </div>
   )
 }
 
